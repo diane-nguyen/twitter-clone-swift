@@ -14,7 +14,18 @@ class HomeTableViewController: UITableViewController {
     var tweetArray = [NSDictionary]()
     var numberOfTweets: Int!
     
-    func loadTweet(){
+    let myRefreshControl = UIRefreshControl()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadTweet()
+        
+        myRefreshControl.addTarget(self, action: #selector(loadTweet), for: .valueChanged)
+        tableView.refreshControl = myRefreshControl
+
+    }
+    
+    @objc func loadTweet(){
         // https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline
         let myURL = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         let myParams = ["count": 10]
@@ -28,6 +39,8 @@ class HomeTableViewController: UITableViewController {
             }
             
             self.tableView.reloadData()
+            // end refreshing
+            self.myRefreshControl.endRefreshing()
             
         }, failure: { (Error) in
             print("Could not retrieve tweet")
@@ -59,12 +72,6 @@ class HomeTableViewController: UITableViewController {
         
         
         return cell
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadTweet()
-
     }
 
     // MARK: - Table view data source
