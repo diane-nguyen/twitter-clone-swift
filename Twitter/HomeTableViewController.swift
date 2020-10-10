@@ -18,17 +18,18 @@ class HomeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadTweet()
+        loadTweets()
         
-        myRefreshControl.addTarget(self, action: #selector(loadTweet), for: .valueChanged)
+        myRefreshControl.addTarget(self, action: #selector(loadTweets), for: .valueChanged)
         tableView.refreshControl = myRefreshControl
 
     }
     
-    @objc func loadTweet(){
+    @objc func loadTweets(){
         // https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline
+        numberOfTweets = 20
         let myURL = "https://api.twitter.com/1.1/statuses/home_timeline.json"
-        let myParams = ["count": 10]
+        let myParams = ["count": numberOfTweets]
         
         // call API
         TwitterAPICaller.client?.getDictionariesRequest(url: myURL, parameters: myParams, success: { (tweets: [NSDictionary]) in
@@ -47,7 +48,32 @@ class HomeTableViewController: UITableViewController {
         })
     }
     
+    func loadMoreTweets(){
+        let myURL = "https://api.twitter.com/1.1/statuses/home_timeline.json"
+        numberOfTweets = numberOfTweets + 20
+        let myParams = ["count": numberOfTweets]
+        
+        // call API
+        TwitterAPICaller.client?.getDictionariesRequest(url: myURL, parameters: myParams, success: { (tweets: [NSDictionary]) in
+            
+            self.tweetArray.removeAll()
+            for tweet in tweets {
+                self.tweetArray.append(tweet)
+            }
+            
+            self.tableView.reloadData()
+        }, failure: { (Error) in
+            print("Could not retrieve tweet")
+        })
+    }
     
+    // call loadMoreTweets when user is getting close to the end of the page
+    // for infinite scroll
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row + 1 == tweetArray.count {
+            loadMoreTweets()
+        }
+    }
     
     @IBAction func onLogout(_ sender: Any) {
         TwitterAPICaller.client?.logout()
