@@ -16,15 +16,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" misplaced="YES" image="TwitterLogoBlue" translatesAutoresizingMaskIntoConstraints="NO" id="m6F-XH-8XL">
-                                <rect key="frame" x="107" y="283" width="197" height="185"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="TwitterLogoBlue" translatesAutoresizingMaskIntoConstraints="NO" id="m6F-XH-8XL">
+                                <rect key="frame" x="107" y="327" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="gup-Dh-Ida"/>
+                                    <constraint firstAttribute="width" constant="200" id="j8c-yp-quh"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="m6F-XH-8XL" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="107" id="snO-GL-b33"/>
-                            <constraint firstItem="m6F-XH-8XL" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="283" id="xhl-51-JID"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="m6F-XH-8XL" secondAttribute="trailing" constant="107" id="Fqp-rE-3AN"/>
+                            <constraint firstItem="m6F-XH-8XL" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="283" id="Fyf-xF-7jA"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="m6F-XH-8XL" secondAttribute="bottom" constant="335" id="PJE-M4-WGG"/>
+                            <constraint firstItem="m6F-XH-8XL" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="107" id="kWL-2i-jPT"/>
                         </constraints>
                     </view>
                 </viewController>
